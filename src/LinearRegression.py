@@ -1,6 +1,7 @@
 import numpy as np
 
 from src.Model import Model
+from src.scoring import R2
 
 
 class LinearRegression(Model):
@@ -13,8 +14,8 @@ class LinearRegression(Model):
         self._betas = None
 
     def fit(self, x, y):
-        """
-        TODO
+        """ Fits the model to the training data by calculating the coefficients
+        Overrides abstract fit method in abstract Model class
 
         Parameters
         ----------
@@ -33,8 +34,8 @@ class LinearRegression(Model):
         return
 
     def predict(self, x):
-        """
-        TODO
+        """ Once the model has been fit, this method returns model estimates
+        Overrides abstract predict method in abstract Model class
 
         Parameters
         ----------
@@ -51,8 +52,8 @@ class LinearRegression(Model):
         return x.dot(self._betas)
 
     def score(self, x, y):
-        """
-        TODO
+        """ Calculates R squared score for trained model
+        Overrides abstract score method in abstract Model class
 
         Parameters
         ----------
@@ -66,13 +67,22 @@ class LinearRegression(Model):
         float
             R-squared score for the model
         """
-        print('predict')
-        return
+        return R2(y, self.predict(x))
+
+    def get_betas(self):
+        """ Gets model coefficients
+
+        Returns
+        -------
+        numpy array or None
+            if model fit - numpy array of coefficients
+            if model not fit - None
+        """
+        return self._betas
 
     @staticmethod
     def _add_intercept_col(x):
-        """
-        TODO
+        """ Adds an intercept column to the data ingested by the model (independent variable(s))
 
         Parameters
         ----------
@@ -88,8 +98,7 @@ class LinearRegression(Model):
         return np.insert(x, 0, intercept_col, axis=1)
 
     def _find_betas(self, x, y):
-        """
-        TODO
+        """ Called by fit() to calculate the coefficients for the linear regression
 
         Parameters
         ----------
