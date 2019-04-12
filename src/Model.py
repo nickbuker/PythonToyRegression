@@ -11,7 +11,7 @@ class Model(ABC):
 
     @abstractmethod
     def fit(self, x, y):
-        """
+        """ Abstract method for training model
 
         Parameters
         ----------
@@ -28,7 +28,7 @@ class Model(ABC):
 
     @abstractmethod
     def predict(self, x):
-        """
+        """ Abstract method for making predictions with a trained model
 
         Parameters
         ----------
@@ -44,7 +44,7 @@ class Model(ABC):
 
     @abstractmethod
     def score(self, x, y):
-        """
+        """ Abstract method for scoring a trained model
 
         x : numpy array
             data on which to score the model (independent variable(s))
