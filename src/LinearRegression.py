@@ -1,4 +1,5 @@
 import numpy as np
+from numpy.linalg import qr, inv
 
 from src.Model import Model
 from src.scoring import R2
@@ -28,7 +29,6 @@ class LinearRegression(Model):
         -------
         None
         """
-        print('fit')
         x = self._add_intercept_col(x)
         self._find_betas(x, y)
         return
@@ -47,7 +47,6 @@ class LinearRegression(Model):
         numpy array
             y-hat (dependent variable estimates)
         """
-        print('predict')
         x = self._add_intercept_col(x)
         return x.dot(self._betas)
 
@@ -111,7 +110,7 @@ class LinearRegression(Model):
         -------
         None
         """
-        # TODO: implement QR and/or SVD solution
-        # solve for betas using (X'X)^-1 X'Y
-        self._betas = np.linalg.inv(x.T.dot(x)).dot(x.T).dot(y)
+        # solve for betas using QR decomposition
+        q, r = qr(x)
+        self._betas = inv(r).dot(r.T).dot(y)
         return
