@@ -1,14 +1,14 @@
 import numpy as np
 
 
-def RSS(y, y_hat):
+def rss(y: np.ndarray, y_hat: np.ndarray) -> float:
     """ Residual Sum of Squares
 
     Parameters
     ----------
-    y : numpy array
+    y
         y values
-    y_hat : numpy array
+    y_hat
         y values estimated by model
 
     Returns
@@ -19,12 +19,12 @@ def RSS(y, y_hat):
     return np.sum((y - y_hat) ** 2)
 
 
-def TSS(y):
+def tss(y: np.ndarray) -> float:
     """ Total Sum of Squares
 
     Parameters
     ----------
-    y : numpy array
+    y
         y values
 
     Returns
@@ -35,14 +35,14 @@ def TSS(y):
     return np.sum((y - np.mean(y)) ** 2)
 
 
-def ESS(y, y_hat):
+def ess(y: np.ndarray, y_hat: np.ndarray) -> float:
     """ Explained Sum of Squares
 
     Parameters
     ----------
-    y : numpy array
+    y
         y values
-    y_hat : numpy array
+    y_hat
         y values estimated by model
 
     Returns
@@ -53,7 +53,7 @@ def ESS(y, y_hat):
     return np.sum((y_hat - np.mean(y)) ** 2)
 
 
-def R2(y, y_hat):
+def r2(y: np.ndarray, y_hat: np.ndarray) -> float:
     """ R squared (coefficient of determination)
 
     Parameters
@@ -68,4 +68,4 @@ def R2(y, y_hat):
     float
         R squared
     """
-    return 1 - (RSS(y, y_hat) / TSS(y))
+    return 1 - (rss(y, y_hat) / tss(y))

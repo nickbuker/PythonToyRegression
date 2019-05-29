@@ -1,8 +1,9 @@
 import numpy as np
 from numpy.linalg import qr, inv
+from typing import Optional
 
 from src.model import Model
-from src.scoring import R2
+from src.scoring import r2
 
 
 class LinearRegression(Model):
@@ -14,7 +15,7 @@ class LinearRegression(Model):
         super().__init__()
         self._betas = None
 
-    def fit(self, x, y):
+    def fit(self, x: np.ndarray, y: np.ndarray) -> None:
         """ Fits the model to the training data by calculating the coefficients
         Overrides abstract fit method in abstract Model class
 
@@ -33,7 +34,7 @@ class LinearRegression(Model):
         self._find_betas(x, y)
         return
 
-    def predict(self, x):
+    def predict(self, x: np.ndarray) -> np.ndarray:
         """ Once the model has been fit, this method returns model estimates
         Overrides abstract predict method in abstract Model class
 
@@ -50,7 +51,7 @@ class LinearRegression(Model):
         x = self._add_intercept_col(x)
         return x.dot(self._betas)
 
-    def score(self, x, y):
+    def score(self, x: np.ndarray, y: np.ndarray) -> float:
         """ Calculates R squared score for trained model
         Overrides abstract score method in abstract Model class
 
@@ -66,9 +67,9 @@ class LinearRegression(Model):
         float
             R-squared score for the model
         """
-        return R2(y, self.predict(x))
+        return r2(y, self.predict(x))
 
-    def get_betas(self):
+    def get_betas(self) -> Optional[np.ndarray]:
         """ Gets model coefficients
 
         Returns
@@ -80,12 +81,12 @@ class LinearRegression(Model):
         return self._betas
 
     @staticmethod
-    def _add_intercept_col(x):
+    def _add_intercept_col(x: np.ndarray) -> np.ndarray:
         """ Adds an intercept column to the data ingested by the model (independent variable(s))
 
         Parameters
         ----------
-        x : numpy array
+        x
             data for the model (independent variable(s))
 
         Returns
@@ -96,14 +97,14 @@ class LinearRegression(Model):
         intercept_col = np.ones(x.shape[0])
         return np.insert(x, 0, intercept_col, axis=1)
 
-    def _find_betas(self, x, y):
+    def _find_betas(self, x: np.ndarray, y: np.ndarray) -> None:
         """ Called by fit() to calculate the coefficients for the linear regression
 
         Parameters
         ----------
-        x : numpy array
+        x
             data on which to train the model (independent variable(s))
-        y : numpy array
+        y
             data on which to train the model (dependent variable)
 
         Returns

@@ -1,3 +1,4 @@
+import numpy as np
 from abc import ABC, abstractmethod
 
 
@@ -10,14 +11,14 @@ class Model(ABC):
         super().__init__()
 
     @abstractmethod
-    def fit(self, x, y):
+    def fit(self, x: np.ndarray, y: np.ndarray) -> None:
         """ Abstract method for training model
 
         Parameters
         ----------
-        x : numpy array
+        x
             data on which to train the model (independent variable(s))
-        y : numpy array
+        y
             data on which to train the model (dependent variable)
 
         Returns
@@ -27,12 +28,12 @@ class Model(ABC):
         return
 
     @abstractmethod
-    def predict(self, x):
+    def predict(self, x: np.ndarray) -> np.ndarray:
         """ Abstract method for making predictions with a trained model
 
         Parameters
         ----------
-        x : numpy array
+        x
             data on which to make estimates (independent variable(s))
 
         Returns
@@ -43,12 +44,12 @@ class Model(ABC):
         return
 
     @abstractmethod
-    def score(self, x, y):
+    def score(self, x: np.ndarray, y: np.ndarray) -> float:
         """ Abstract method for scoring a trained model
 
-        x : numpy array
+        x
             data on which to score the model (independent variable(s))
-        y : numpy array
+        y
             data on which to score the model (dependent variable)
 
         Returns
