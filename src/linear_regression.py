@@ -2,7 +2,7 @@ import numpy as np
 from numpy.linalg import qr, inv
 from typing import Optional
 
-from src.model import Model
+from src.Model import Model
 from src.scoring import r2
 
 
